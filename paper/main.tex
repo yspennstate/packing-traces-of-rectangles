@@ -1,0 +1,241 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xurl}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\setlength{\emergencystretch}{3em}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Fb}{\bar{\mathcal{F}}}
+\newcommand{\cL}{\mathcal{L}}
+
+\title{Packing the traces of rectangles on horizontal lines}
+\author{Yitzchak Shmalo$^{\,a}$\thanks{Email address:
+\texttt{yitzchak.shmalo@gmail.com} (Yitzchak Shmalo).}\\
+{\small $^{a}$Einstein Institute of Mathematics, The Hebrew University of
+Jerusalem, Givat Ram,}\\
+{\small Jerusalem, Israel}}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\F$ be a finite family of closed axis-parallel rectangles in the plane and let $\cL$ be a finite set of horizontal lines such that every member of $\F$ meets some line of $\cL$. Intersecting each rectangle with the union of the lines gives a family $\Fb$ of $p$-intervals. McGinnis and Zerbib conjectured that $\nu(\Fb)\le B\,\nu(\F)$ for an absolute constant $B$, where $\nu$ is the largest number of pairwise disjoint members; together with a companion conjecture on piercing, this would give a constant factor in Wegner's problem on piercing rectangles. We prove that $\nu(\Fb)\le 3\nu(\F)-1$ for every nonempty $\F$ and every such $\cL$, and that $\nu(\Fb)\le(3-\varepsilon)\nu(\F)$ for an absolute $\varepsilon>0$. For a prescribed set of lines the constant cannot be below $5/2$, and $5/2$ is the best constant for four or five lines. We also observe that $\tau(\F)\le\tau(\Fb)\le2\tau(\F)$, so the companion conjecture is equivalent to the existence of a constant $C$ with $\tau\le C\nu$ for all finite families of axis-parallel rectangles.
+\end{abstract}
+
+\noindent\textbf{Keywords:} axis-parallel rectangles, piercing, packing, $d$-intervals, planar triangle-free graphs.\\
+\textbf{MSC 2020:} 52C15, 05C10, 05C69.
+
+\section{Introduction}\label{sec:intro}
+
+For a family $\mathcal{G}$ of sets let $\nu(\mathcal{G})$ be the largest number of pairwise disjoint members of $\mathcal{G}$ and $\tau(\mathcal{G})$ the smallest number of points meeting every member. Wegner \cite{W} asked whether $\tau(\F)\le 2\nu(\F)-1$ for every finite family $\F$ of axis-parallel rectangles in the plane, and Gy\'arf\'as and Lehel \cite{GL} asked, more modestly, whether $\tau(\F)\le C\nu(\F)$ for an absolute constant $C$. Ajwani, Gajjala, Raman and Ray \cite{AGRR} and Bal \cite{Bal} constructed families with $\tau\ge2\nu$, so Wegner's inequality fails. The best general bound is $\tau=O(\nu(\log\log\nu)^2)$ by Correa, Feuilloley, P\'erez-Lantero and Soto \cite{CFPS}, and a construction of Fon-Der-Flaass and Kostochka \cite{FK} has $\tau\ge\lfloor5\nu/3\rfloor$. Whether a constant $C$ exists is open.
+
+McGinnis and Zerbib \cite[Section~3.3]{MZ} reduce the Gy\'arf\'as--Lehel question to two questions about $p$-intervals. Let $p=\nu(\F)$. The vertical projections of the members of $\F$ form a family of intervals with no $p+1$ pairwise disjoint members, so $p$ points pierce them (take the smallest right endpoint, remove the intervals containing it, and repeat), and there are $p$ horizontal lines meeting every rectangle. For $F\in\F$ let $\bar F$ be the intersection of $F$ with the union of these lines, and let $\Fb=\{\bar F: F\in\F\}$. Since a point of $\bar F$ lies in $F$, every piercing set of $\Fb$ pierces $\F$, and $\tau(\F)\le\tau(\Fb)$.
+
+\begin{conjecture}[McGinnis--Zerbib {\cite[Conjecture~3.7]{MZ}}]\label{conj:A}
+There is a constant $A$ such that $\tau(\Fb)\le A\,\nu(\Fb)$ for every finite family $\F$ of axis-parallel rectangles.
+\end{conjecture}
+
+\begin{conjecture}[McGinnis--Zerbib {\cite[Conjecture~3.8]{MZ}}]\label{conj:B}
+There is a constant $B$ such that $\nu(\Fb)\le B\,\nu(\F)$ for every finite family $\F$ of axis-parallel rectangles.
+\end{conjecture}
+
+If both hold then $\tau(\F)\le\tau(\Fb)\le A\nu(\Fb)\le AB\,\nu(\F)$. McGinnis and Zerbib state both conjectures without a bound and remark that Conjecture~\ref{conj:A} may be approachable with the KKM method. For Conjecture~\ref{conj:B} we use graph theory instead. Steinberg and Tovey \cite{ST} proved that a planar triangle-free graph on $n$ vertices has an independent set of size $\lfloor n/3\rfloor+1$, and Dvo\v{r}\'ak and Venters \cite[Theorem~2]{DV} improved the constant $1/3$ for such graphs without clean Thomas--Walls tubes. Neither result mentions rectangles. The new step is that the rectangles behind a family of pairwise disjoint traces have a planar triangle-free intersection graph $G$ (Lemma~\ref{lem:planar}), whose independent sets are families of pairwise disjoint rectangles, so that
+\[
+\nu(\F)\ \ge\ \alpha(G)\ \ge\ \frac{\nu(\Fb)+1}{3}.
+\]
+We prove Conjecture~\ref{conj:B} in this way. The proof uses nothing about how the lines are chosen, so we state it for an arbitrary finite set $\cL$ of horizontal lines meeting every member of $\F$, and write $\Fb_\cL$ for the corresponding family of traces.
+
+\begin{theorem}\label{thm:main}
+Let $\F$ be a nonempty finite family of closed axis-parallel rectangles and $\cL$ a finite set of horizontal lines such that every member of $\F$ meets a line of $\cL$. Then
+\[
+\nu(\Fb_\cL)\le 3\nu(\F)-1 .
+\]
+Moreover there is an absolute constant $\varepsilon>0$ such that $\nu(\Fb_\cL)\le(3-\varepsilon)\,\nu(\F)$ for all such $\F$ and $\cL$.
+\end{theorem}
+
+The bound $3\nu(\F)-1$ is attained for $\nu(\F)=1$ and $\nu(\F)=2$ (Section~\ref{sec:lower}). The first bound comes from a plane triangle-free graph on a disjoint family of traces and the theorem of Steinberg and Tovey \cite{ST}; the second from a subgraph that this graph never contains and a theorem of Dvo\v{r}\'ak and Venters \cite{DV}. Their theorem gives no numerical value of $\varepsilon$. An elementary colouring argument, given in Proposition~\ref{prop:four}, gives the constant $4$, with weights.
+
+\begin{theorem}\label{thm:lower}
+For every $k\ge2$ there are a family $\F$ with $\nu(\F)=2k$ and a set $\cL$ of $2k$ horizontal lines meeting every member of $\F$ such that $\nu(\Fb_\cL)=5k$. For sets of at most $p$ lines the best constant $B_p$ in $\nu(\Fb_\cL)\le B_p\,\nu(\F)$ satisfies $B_1=1$, $B_2=B_3=2$, $B_4=B_5=5/2$ and $5/2\le B_6\le 8/3$.
+\end{theorem}
+
+Theorem~\ref{thm:lower} concerns a given set of lines. The same family can have much smaller ratio for another set of lines meeting all its members (Remark~\ref{rem:choice}), and we do not know the best constant when the lines may be chosen.
+
+Finally, Conjecture~\ref{conj:A} is equivalent to the Gy\'arf\'as--Lehel question.
+
+\begin{proposition}\label{prop:tau}
+For every $\F$ and $\cL$ as in Theorem~\ref{thm:main}, $\tau(\F)\le\tau(\Fb_\cL)\le2\tau(\F)$. Consequently a bound $\tau(\Fb)\le A\nu(\Fb)$ for all finite families implies $\tau(\F)\le 3A\,\nu(\F)$, and a bound $\tau(\F)\le C\nu(\F)$ implies $\tau(\Fb)\le 2C\,\nu(\Fb)$.
+\end{proposition}
+
+The paper is organized as follows. Section~\ref{sec:blocks} records the structure of intersecting rectangles with disjoint traces and proves the factor four. Section~\ref{sec:planar} proves Theorem~\ref{thm:main}, Section~\ref{sec:lower} proves Theorem~\ref{thm:lower}, and Section~\ref{sec:tau} proves Proposition~\ref{prop:tau}.
+
+\section{Blocks of lines}\label{sec:blocks}
+
+Throughout, $\F$ and $\cL$ are as in Theorem~\ref{thm:main}. Let the lines of $\cL$ be $y=h_1<\dots<h_p$. A rectangle $R=I_R\times J_R$ with $I_R,J_R$ closed intervals meets the lines $h_i$ with $h_i\in J_R$; since $J_R$ is an interval these indices form a nonempty integer interval $[a_R,b_R]$, the \emph{block} of $R$. The trace of $R$ is $\bar R=I_R\times\{h_i: a_R\le i\le b_R\}$.
+
+\begin{lemma}\label{lem:blocks}
+Let $R,S\in\F$ have disjoint traces. If $R\cap S\ne\emptyset$ then the blocks of $R$ and $S$ are disjoint and consecutive: after renaming, $b_R+1=a_S$.
+\end{lemma}
+
+\begin{proof}
+If $R$ and $S$ meet then $I_R\cap I_S\ne\emptyset$ and $J_R\cap J_S\ne\emptyset$. If their blocks shared an index $i$, a point $(x,h_i)$ with $x\in I_R\cap I_S$ would lie in both traces. So the blocks are disjoint, and after renaming $b_R<a_S$. If $b_R+1<a_S$, the line $h_{b_R+1}$ meets neither rectangle; as $J_R$ contains $h_{b_R}$ and $J_S$ contains $h_{a_S}$, this gives $\max J_R<h_{b_R+1}<\min J_S$, so $R\cap S=\emptyset$.
+\end{proof}
+
+To each $R$ we attach the pair of integers $(a_R,b_R+1)$ in $\{1,\dots,p+1\}$, with $a_R<b_R+1$. By Lemma~\ref{lem:blocks}, if $R$ lies below $S$ and they meet then the second entry of the pair of $R$ equals the first entry of the pair of $S$.
+
+\begin{proposition}\label{prop:four}
+Let $\bar R_1,\dots,\bar R_n$ be pairwise disjoint traces with nonnegative weights $w_1,\dots,w_n$. Some subfamily of $R_1,\dots,R_n$ of pairwise disjoint rectangles has weight at least $(w_1+\dots+w_n)/4$. In particular $\nu(\Fb_\cL)\le 4\nu(\F)$.
+\end{proposition}
+
+\begin{proof}
+For a set $M\subseteq\{1,\dots,p+1\}$ keep the rectangles $R_j$ with $a_{R_j}\in M$ and $b_{R_j}+1\notin M$. If two kept rectangles met, then by Lemma~\ref{lem:blocks} one index would lie both in $M$ and outside $M$; so the kept rectangles are pairwise disjoint. Each $R_j$ is kept for exactly $2^{p-1}$ of the $2^{p+1}$ sets $M$, so the average kept weight is a quarter of the total.
+\end{proof}
+
+\section{A plane graph and the proof of Theorem~\ref{thm:main}}\label{sec:planar}
+
+Fix pairwise disjoint traces $\bar R_1,\dots,\bar R_n$ and let $G$ be the graph on $\{R_1,\dots,R_n\}$ in which $R_i$ and $R_j$ are adjacent when $R_i\cap R_j\ne\emptyset$. An independent set of $G$ is a family of pairwise disjoint rectangles.
+
+\begin{lemma}\label{lem:planar}
+$G$ is planar and triangle-free.
+\end{lemma}
+
+\begin{proof}
+Three pairwise adjacent vertices would have pairwise disjoint, pairwise consecutive blocks by Lemma~\ref{lem:blocks}, which is impossible.
+
+For planarity, let the core of $R$ be $K_R=I_R\times[h_{a_R},h_{b_R}]$, a closed rectangle, possibly a segment or a point. The cores are pairwise disjoint: if $[h_{a_R},h_{b_R}]$ and $[h_{a_S},h_{b_S}]$ meet, their intersection is a nonempty interval whose ends are among the $h_i$, so the blocks share an index $i$, and then $I_R\cap I_S=\emptyset$ because the traces are disjoint on the line $h_i$.
+
+For an edge $RS$ with $b_R+1=a_S$ choose $x_{RS}\in I_R\cap I_S$ and let $\sigma_{RS}$ be the vertical segment from $(x_{RS},h_{b_R})$ to $(x_{RS},h_{a_S})$. Its lower end lies on the top side of $K_R$ and its upper end on the bottom side of $K_S$. Its relative interior lies in the open strip $h_{b_R}<y<h_{b_R+1}$ and meets no core: a core entering this strip contains both lines $h_{b_R}$ and $h_{b_R+1}$, so the corresponding rectangle $T\ne R$ has $b_R$ in its block, whence $I_T\cap I_R=\emptyset$ and $x_{RS}\notin I_T$. Two segments in the same strip are disjoint: if $RS\ne R'S'$ with both in that strip, then $R\ne R'$ or $S\ne S'$; in the first case $R$ and $R'$ both have $b_R$ in their blocks, so $I_R\cap I_{R'}=\emptyset$ and $x_{RS}\ne x_{R'S'}$, and the second case is the same with the index $a_S$. Segments in different strips meet only at points of the lines, which are endpoints and lie in cores; an endpoint of $\sigma_{RS}$ lies in no core other than $K_R$ or $K_S$ because the cores are disjoint.
+
+Thus the cores and the segments form a plane drawing in which each segment meets exactly two cores, at its endpoints. Inside each core join the finitely many endpoints on its boundary by a tree drawn in the core, using a single point if there are none. Contracting each of these trees, which are disjoint connected plane subgraphs, gives a plane drawing of $G$.
+\end{proof}
+
+\begin{proof}[Proof of the first bound in Theorem~\ref{thm:main}]
+Take $n=\nu(\Fb_\cL)$ pairwise disjoint traces. Steinberg and Tovey \cite{ST} proved that every planar triangle-free graph on $n\ge1$ vertices has an independent set of size at least $(n+1)/3$. By Lemma~\ref{lem:planar} this applies to $G$, so $\nu(\F)\ge(n+1)/3$.
+\end{proof}
+
+\begin{remark}\label{rem:weights}
+By Gr\"otzsch's theorem \cite{G} the graph $G$ is $3$-colourable, and one colour class carries at least a third of any nonnegative weighting of the vertices. So the weighted form of Proposition~\ref{prop:four} holds with $3$ in place of $4$.
+\end{remark}
+
+For the second bound we need more structure. Orient each edge of $G$ from the lower block to the upper one.
+
+\begin{lemma}\label{lem:cycles}
+\begin{enumerate}
+\item[(a)] If $R$ and $S$ have the same block, then $G$ contains no path $R\,P\,Q\,S$ with three edges.
+\item[(b)] In every $4$-cycle of $G$ one pair of opposite vertices has the same block.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let the common block be $[a,b]$. By Lemma~\ref{lem:blocks}, $P$ has block starting at $b+1$ or ending at $a-1$, and so does $Q$. If both start at $b+1$ they share the line $h_{b+1}$, so $I_P\cap I_Q=\emptyset$ and $P,Q$ are not adjacent; the same holds if both end at $a-1$. If $P$ starts at $b+1$ and $Q$ ends at $a-1$ (or the reverse), the line $h_a$ lies strictly between their blocks, so the blocks are not consecutive and $P,Q$ are not adjacent.
+
+(b) Let $C$ be a $4$-cycle, oriented as above. Along a directed edge $R\to S$ we have $a_S=b_R+1>a_R$, so $C$ is not a directed cycle. Suppose a source $s$ and a sink $t$ of $C$ are adjacent; then the other arc of $C$ is a directed path $s\to u\to v\to t$, and $a_t>a_v>a_u=b_s+1=a_t$, a contradiction. Suppose $C$ has two sources $s_1,s_2$ and two sinks $t_1,t_2$, alternating. Then $b_{s_1}+1=a_{t_1}=b_{s_2}+1=a_{t_2}$, so $s_1,s_2$ share a line and $t_1,t_2$ share a line; hence $I_{s_1}\cap I_{s_2}=\emptyset$ and $I_{t_1}\cap I_{t_2}=\emptyset$. Each of $I_{t_1},I_{t_2}$ meets both $I_{s_1}$ and $I_{s_2}$, so each contains the closed interval between them, and $I_{t_1}\cap I_{t_2}\ne\emptyset$, a contradiction. The remaining case is a source $s$ and a sink $t$ opposite to each other, with directed paths $s\to u\to t$ and $s\to v\to t$. Then $a_u=b_s+1=a_v$ and $b_u=a_t-1=b_v$, so $u$ and $v$ have the same block.
+\end{proof}
+
+Let $W$ be the graph on eight vertices consisting of a $4$-cycle $c_1c_2c_3c_4$, a path $c_1d_1d_2c_3$ and a path $c_2e_1e_2c_4$, all new vertices distinct.
+
+\begin{corollary}\label{cor:W}
+$G$ has no subgraph isomorphic to $W$.
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:cycles}(b) one of the pairs $\{c_1,c_3\}$, $\{c_2,c_4\}$ consists of two vertices with the same block, and by Lemma~\ref{lem:cycles}(a) such a pair cannot be joined by a path with three edges.
+\end{proof}
+
+We recall the Thomas--Walls graphs as defined in \cite{DV}. Let $T_1=K_4$. Given $T_k$, choose an edge $u_1u_3$ lying in two triangles and let $T_{k+1}$ be obtained from $T_k-u_1u_3$ by adding vertices $x,y,z$ and edges $u_1x,u_3y,u_3z,xy,xz,yz$. For $k\ge2$, $T_k$ contains exactly two $4$-cycles $u_1u_2u_3u_4$ and $v_1v_2v_3v_4$ with chords $u_1u_3$ and $v_1v_3$, and the reduced Thomas--Walls graph is $T'_k=T_k-\{u_1u_3,v_1v_3\}$. A clean Thomas--Walls $k$-tube in a plane triangle-free graph is a subgraph isomorphic to $T'_k$ satisfying a further condition on its $5$-faces \cite{DV}; we only use that it is a subgraph isomorphic to $T'_k$.
+
+\begin{lemma}\label{lem:T3}
+$T'_3$ contains a subgraph isomorphic to $W$.
+\end{lemma}
+
+\begin{proof}
+Start from $K_4$ on $a,b,c,d$. To form $T_2$ delete $ab$ and add $ax,by,bz,xy,xz,yz$. The edges of $T_2$ lying in two triangles are $cd$ and $yz$; to form $T_3$ delete $yz$ and add $yw,zu,zv,wu,wv,uv$. The $4$-cycles of $T_3$ with a chord are $acbd$ with chord $cd$ and $zuwv$ with chord $uv$, so $T'_3=T_3-\{cd,uv\}$, with $10$ vertices and $14$ edges. Its $4$-cycle $x\,y\,b\,z$, the path $x\,a\,c\,b$ and the path $y\,w\,u\,z$ form a copy of $W$.
+\end{proof}
+
+The two choices of $u_1u_3$ in $T_2$ give isomorphic graphs, since the map fixing $b$ and exchanging $a\leftrightarrow x$, $c\leftrightarrow z$, $d\leftrightarrow y$ is an automorphism of $T_2$ taking $cd$ to $yz$, and exchanging $y$ and $z$ is also an automorphism, so it does not matter which end of the chosen edge plays the role of $u_1$.
+
+\begin{proof}[Proof of the second bound in Theorem~\ref{thm:main}]
+Dvo\v{r}\'ak and Venters \cite[Theorem~2]{DV} proved that for every $k$ there is $\gamma_k>0$ such that every plane triangle-free graph without a clean Thomas--Walls $k$-tube has independence number at least $(1+\gamma_k)|V|/3$. Embed $G$ in the plane by Lemma~\ref{lem:planar}. By Corollary~\ref{cor:W} and Lemma~\ref{lem:T3}, $G$ has no subgraph isomorphic to $T'_3$, so it has no clean Thomas--Walls $3$-tube, and $\nu(\F)\ge(1+\gamma_3)\nu(\Fb_\cL)/3$. Take $\varepsilon=3\gamma_3/(1+\gamma_3)$.
+\end{proof}
+
+\section{Lower bounds and few lines}\label{sec:lower}
+
+Take the lines $y=0,2,4,6$ and the five closed rectangles
+\[
+A=[0,4]\times[-1,1],\quad B=[0,1]\times[1,5],\quad C=[0,4]\times[5,7],\quad D=[3,4]\times[3,5],\quad E=[3,4]\times[1,3].
+\]
+Their blocks are $\{1\}$, $\{2,3\}$, $\{4\}$, $\{3\}$ and $\{2\}$. The traces are pairwise disjoint: the only lines shared are $y=2$ by $B$ and $E$ and $y=4$ by $B$ and $D$, and $[0,1]$ is disjoint from $[3,4]$. The pairs that meet are $AB$, $BC$, $CD$, $DE$, $EA$, so the intersection graph is a $5$-cycle and $\nu=2$, while $\nu(\Fb_\cL)=5$. If one prefers rectangles whose interiors overlap at each contact, enlarge each vertical interval by $1/4$ at both ends; the blocks and the intersection graph do not change.
+
+\begin{remark}\label{rem:choice}
+The lines $y=1,3,5$ also meet every one of the five rectangles. For them the blocks are $\{1\}$, $\{1,2,3\}$, $\{3\}$, $\{2,3\}$ and $\{1,2\}$; the disjoint pairs of traces are $AC$, $AD$, $BD$, $BE$ and $CE$, which again form a $5$-cycle, so $\nu(\Fb_\cL)=2=\nu(\F)$. The ratio therefore depends on the lines and not only on the family.
+\end{remark}
+
+For the upper bounds with few lines we use the argument of Proposition~\ref{prop:four} with a short list of sets in place of all subsets. Recall that $R$ has the pair $(a_R,b_R+1)$ in $\{1,\dots,p+1\}$, and that for a set $M$ the rectangles with $a_R\in M$ and $b_R+1\notin M$ are pairwise disjoint. Say that $M$ separates the pair $i<j$ if $i\in M$ and $j\notin M$. If $M_1,\dots,M_m$ are sets such that every pair $i<j$ in $\{1,\dots,p+1\}$ is separated by at least $q$ of them, then among $n$ pairwise disjoint traces some $M_t$ keeps at least $qn/m$ of the rectangles, so $\nu(\Fb_\cL)\le (m/q)\,\nu(\F)$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}]
+Let $k\ge2$. Place $k$ copies of the five rectangles side by side, translated horizontally by $0,10,\dots,10(k-1)$, and let $\cL$ consist of the lines $y=0,2,4,6$ and $2k-4$ further lines above $y=7$, which meet no rectangle. Rectangles in different copies are disjoint, so the intersection graph is $k$ disjoint $5$-cycles and $\nu(\F)=2k$, while the $5k$ traces are pairwise disjoint.
+
+For the values of $B_p$, note first that $B_p$ is nondecreasing in $p$. With one line the trace of $R$ is the interval $I_R$ on that line, and two rectangles with disjoint traces have disjoint horizontal intervals, so $B_1=1$. The rectangles $[0,1]\times[-1,1]$ and $[0,1]\times[1,3]$ with the lines $y=0,2$ give $B_2\ge2$, and the five rectangles above give $B_4\ge5/2$. For the upper bounds take, on the positions $\{1,\dots,p+1\}$,
+\begin{align*}
+p=3:&\quad \{1,2\},\ \{1,3\};\\
+p=5:&\quad \{1,2,3\},\ \{1,2,4\},\ \{1,3,4\},\ \{1,2,5\},\ \{1,3,5\};\\
+p=6:&\quad \{1,2,4\},\ \{1,3,4\},\ \{1,2,5\},\ \{1,2,3,5\},\ \{1,3,4,5\},\ \{1,3,6\},\ \{1,2,3,6\},\ \{1,2,4,6\}.
+\end{align*}
+A direct check shows that every pair is separated by at least one, two and three of these sets respectively, which gives $B_3\le2$, $B_5\le5/2$ and $B_6\le8/3$. For $p'<p$ the same sets, intersected with $\{1,\dots,p'+1\}$, separate every pair of $\{1,\dots,p'+1\}$ at least as often, which gives $B_2\le2$ and $B_4\le5/2$.
+\end{proof}
+
+\section{Piercing numbers}\label{sec:tau}
+
+\begin{proof}[Proof of Proposition~\ref{prop:tau}]
+A point of $\bar F$ lies in $F$, so a piercing set of $\Fb_\cL$ pierces $\F$. Conversely let $P$ pierce $\F$. For $q=(x,y)\in P$ let $Q_q$ consist of the point $(x,h_i)$ for the largest $h_i\le y$ and the point $(x,h_j)$ for the smallest $h_j\ge y$, when these exist. If $R$ contains $q$, then $J_R$ is an interval containing $y$ and some line of $\cL$; if that line lies below $y$ then $J_R$ contains $h_i$, and otherwise it contains $h_j$. Either way $\bar R$ meets $Q_q$, so $\bigcup_q Q_q$ pierces $\Fb_\cL$ and has at most $2|P|$ points.
+
+If $\tau(\Fb)\le A\nu(\Fb)$ for all families then, by Theorem~\ref{thm:main}, $\tau(\F)\le\tau(\Fb)\le A(3\nu(\F)-1)<3A\nu(\F)$. If $\tau\le C\nu$ for all finite families of rectangles then $\tau(\Fb)\le2\tau(\F)\le2C\nu(\F)\le2C\nu(\Fb)$, since disjoint rectangles have disjoint traces.
+\end{proof}
+
+Thus Conjecture~\ref{conj:A} holds if and only if the Gy\'arf\'as--Lehel question has a positive answer, and passing from $\F$ to $\Fb$ changes both $\tau$ and $\nu$ by at most a constant factor.
+
+\section*{Credits}
+The reduction of the piercing problem for rectangles to the traces $\Fb$, and Conjectures~\ref{conj:A} and~\ref{conj:B}, are due to McGinnis and Zerbib \cite{MZ}. The bound $\lfloor n/3\rfloor+1$ for the independence number of planar triangle-free graphs on $n$ vertices is due to Steinberg and Tovey \cite{ST}, the three-colouring of planar triangle-free graphs to Gr\"otzsch \cite{G}, the graphs $T_k$ to Thomas and Walls \cite{TW}, and the improved bound for graphs without clean Thomas--Walls tubes to Dvo\v{r}\'ak and Venters \cite{DV}. Theorems~\ref{thm:main} and~\ref{thm:lower}, Proposition~\ref{prop:tau} and the lemmas of Sections~\ref{sec:blocks} and~\ref{sec:planar} are new.
+
+\section*{Funding}
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital and by the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+\section*{Acknowledgments}
+This work was done by Claude (Anthropic) and Codex (OpenAI) agents, connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, which many Claude (Anthropic) and Codex (OpenAI) agents build and use. The framework is a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}.
+
+\section*{Code and data availability}
+The scripts that check the lemmas on random families, the examples, the graph $T'_3$ and the lists of sets in Section~\ref{sec:lower} are at \url{https://github.com/yspennstate/packing-traces-of-rectangles}. The paper is part of the Math Brain project~\cite{MathBrainRepo}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+This paper is part of a broader research project on proving open problems with AI systems. Codex (OpenAI) proposed the proofs; Claude (Anthropic) checked and completed them, ran the computations, compared the results with the literature and wrote the text. The results rest on the conjectures and reduction of McGinnis and Zerbib \cite{MZ}, the theorem of Steinberg and Tovey \cite{ST}, the theorem of Gr\"otzsch \cite{G} and the theorem of Dvo\v{r}\'ak and Venters \cite{DV}. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital. These entities are included in the funding declaration above.
+
+\begin{thebibliography}{99}
+\bibitem{AGRR} D.~Ajwani, R.~Gajjala, R.~Raman and S.~Ray, Counterexamples to Wegner's conjecture for rectangles, arXiv:2606.17854, 2026.
+\bibitem{Bal} A.~K.~Bal, A $64$-rectangle counterexample to Wegner's conjecture and LP gaps up to $5/2$, arXiv:2607.11318, 2026.
+\bibitem{CFPS} J.~Correa, L.~Feuilloley, P.~P\'erez-Lantero and J.~A.~Soto, Independent and hitting sets of rectangles intersecting a diagonal line: algorithms and complexity, \emph{Discrete Comput. Geom.} 53 (2015) 344--365.
+\bibitem{DV} Z.~Dvo\v{r}\'ak and J.~Venters, Triangle-free planar graphs with small independence number, \emph{European J. Combin.} 76 (2019) 88--103, arXiv:1702.02888.
+\bibitem{FK} D.~G.~Fon-Der-Flaass and A.~V.~Kostochka, Covering boxes by points, \emph{Discrete Math.} 120 (1993) 269--275.
+\bibitem{G} H.~Gr\"otzsch, Zur Theorie der diskreten Gebilde, VII: Ein Dreifarbensatz f\"ur dreikreisfreie Netze auf der Kugel, \emph{Wiss. Z. Martin-Luther-Univ. Halle-Wittenberg Math.-Nat. Reihe} 8 (1959) 109--120.
+\bibitem{GL} A.~Gy\'arf\'as and J.~Lehel, Covering and coloring problems for relatives of intervals, \emph{Discrete Math.} 55 (1985) 167--180.
+\bibitem{MZ} D.~McGinnis and S.~Zerbib, Using the KKM theorem, arXiv:2408.03921, 2024.
+\bibitem{ST} R.~Steinberg and C.~A.~Tovey, Planar Ramsey numbers, \emph{J. Combin. Theory Ser. B} 59 (1993) 288--296.
+\bibitem{TW} R.~Thomas and B.~Walls, Three-coloring Klein bottle graphs of girth five, \emph{J. Combin. Theory Ser. B} 92 (2004) 115--135.
+\bibitem{W} G.~Wegner, \"Uber eine kombinatorisch-geometrische Frage von Hadwiger und Debrunner, \emph{Israel J. Math.} 3 (1965) 187--198.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public/tree/5427734deee9be643d6dfbdd5e7d4baeeefe4a4a}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, doi:10.5281/zenodo.24150837, \url{https://github.com/yspennstate/math-brain-public/tree/5427734deee9be643d6dfbdd5e7d4baeeefe4a4a/papers/math-brain-2026-10-24}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public/tree/46b935d26d5a2893f7790b60466387dd8da47ef5}.
+\end{thebibliography}
+
+\end{document}
